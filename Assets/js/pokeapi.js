@@ -8,6 +8,12 @@ const pokemon = "pikachu";
 // this is the full url to the api endpoint
 let apiURL = staticURL + pokemonEndpoint + pokemon;
 
+// logging the pokemon array to the console for testing
+let pokemonArray = getPokemonData().then(pokemonArray => {
+    console.log(pokemonArray);
+});
+
+
 console.log(apiURL);
 
 // fetch request using the apiURL
@@ -112,3 +118,22 @@ async function getPokemonGeneration(speciesURL) {
     // return the generation
     return generation;
 }
+
+// gets all pokemon objects from the api
+// this is a very large array, so it is stored in local storage to prevent multiple api calls
+// can implement this in the future to prevent calling the api everytime the user searches for a pokemon
+async function getPokemonData() {
+    const storedData = localStorage.getItem('pokemonData');
+
+    if (storedData) {
+        return JSON.parse(storedData);
+    } else {
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1118');
+        const data = await response.json();
+        localStorage.setItem('pokemonData', JSON.stringify(data));
+        return data;
+    }
+}
+
+
+
