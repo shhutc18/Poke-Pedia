@@ -62,7 +62,7 @@ function displayPokemonHeightWeight(height, weight) {
 }
 
 function displayPokemonSprite(spriteURL) {
-    console.log(spriteURL);
+    console.log("sprite url:", spriteURL);
     // create an image element
     let pokemonImage = document.createElement('img');
     // set the src attribute to the spriteURL
@@ -71,8 +71,36 @@ function displayPokemonSprite(spriteURL) {
     document.body.appendChild(pokemonImage);
 }
 
-function displayPokemonGeneration(speciesURL) {
-    let generation = getPokemonGeneration(speciesURL);
+async function displayPokemonGeneration(speciesURL) {
+    let generation = await getPokemonGeneration(speciesURL);
     console.log(generation);
 }
 
+async function getPokemonGeneration(speciesURL) {
+    // scoped variable to hold the generation
+    let generation = "";
+    // fetch request using the speciesURL
+    await fetch(speciesURL)
+        .then(function(response) {
+            // if the response is successful, return the json data
+            if (response.ok) {
+                return response.json();
+            } else {
+                // if the response is not successful, throw an error
+                throw new Error("There was a problem retrieving the species data.");
+            }
+        })
+        .then(function(speciesData) {
+            // log the data to the console
+            //console.log(speciesData);
+            // call the function to display the data
+            generation = speciesData.generation.name;
+        })
+        .catch(function(error) {
+            // this will run if there is an error
+            console.log("There was a problem: ", error.message);
+        });
+
+    // return the generation
+    return generation;
+}
