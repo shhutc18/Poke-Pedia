@@ -17,28 +17,29 @@ fetch(apiURL)
         if (response.ok) {
             return response.json();
         } else {
-            // if the response is not successful, throw an error
             throw new Error("There was a problem retrieving the pokemon data. Most likely the pokemon is misspelled or does not exist.");
         }
     })
     .then(function(pokemonData) {
-        // log the data to the console
+        // log the data to the console for testing
         console.log(pokemonData);
-        // call the function to display the data
+        // display the pokemon data on the page
         displayPokemon(pokemonData);
     })
     .catch(function(error) {
-        // this will run if there is an error
         console.log("There was a problem: ", error.message);
     });
 
-// function to display the pokemon data
+// function to generate the pokemon data on the page
+// for easier reading, I broke the data up into separate functions
+// for testing, I am just logging the data to the console
 function displayPokemon(data) {
     displayPokemonName(data.name);
     displayPokemonType(data.types);
     displayPokemonDexNumber(data.id);
     displayPokemonHeightWeight(data.height, data.weight);
     displayPokemonSprite(data.sprites.front_default);
+    displayPokemonSprite(data.sprites.front_shiny);
     displayPokemonGeneration(data.species.url);
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
@@ -64,12 +65,9 @@ function displayPokemonHeightWeight(height, weight) {
 }
 
 function displayPokemonSprite(spriteURL) {
-    console.log("sprite url:", spriteURL);
-    // create an image element
+    // create an image element and set the src attribute to the spriteURL
     let pokemonImage = document.createElement('img');
-    // set the src attribute to the spriteURL
     pokemonImage.setAttribute('src', spriteURL);
-    // append the image to the body
     document.body.appendChild(pokemonImage);
 }
 
@@ -85,33 +83,29 @@ function displayPokemonMoves(moves) {
     });
 }
 
+// async function to wait for the generation data to be returned
 async function displayPokemonGeneration(speciesURL) {
     let generation = await getPokemonGeneration(speciesURL);
     console.log(generation);
 }
 
+// gets the pokemon species data and returns the generation name
 async function getPokemonGeneration(speciesURL) {
     // scoped variable to hold the generation
     let generation = "";
-    // fetch request using the speciesURL
+    // fetch request using the speciesURL passed in from the pokemon data
     await fetch(speciesURL)
         .then(function(response) {
-            // if the response is successful, return the json data
             if (response.ok) {
                 return response.json();
             } else {
-                // if the response is not successful, throw an error
                 throw new Error("There was a problem retrieving the species data.");
             }
         })
         .then(function(speciesData) {
-            // log the data to the console
-            //console.log(speciesData);
-            // call the function to display the data
             generation = speciesData.generation.name;
         })
         .catch(function(error) {
-            // this will run if there is an error
             console.log("There was a problem: ", error.message);
         });
 
