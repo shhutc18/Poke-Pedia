@@ -40,6 +40,8 @@ function displayPokemon(data) {
     displayPokemonHeightWeight(data.height, data.weight);
     displayPokemonSprite(data.sprites.front_default);
     displayPokemonGeneration(data.species.url);
+    displayPokemonStats(data.stats);
+    displayPokemonMoves(data.moves);
 }
 
 function displayPokemonName(name) {
@@ -69,6 +71,18 @@ function displayPokemonSprite(spriteURL) {
     pokemonImage.setAttribute('src', spriteURL);
     // append the image to the body
     document.body.appendChild(pokemonImage);
+}
+
+function displayPokemonStats(stats) {
+    stats.forEach(stat => {
+        console.log(stat.stat.name, stat.base_stat);
+    });
+}
+
+function displayPokemonMoves(moves) {
+    moves.forEach(move => {
+        console.log(move.move.name);
+    });
 }
 
 async function displayPokemonGeneration(speciesURL) {
