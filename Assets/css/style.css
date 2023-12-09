@@ -1,13 +1,25 @@
 header {
+    background-image: url(../Images/pokeball.png);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 5px 20px;
     font-size: 20px;
     color: red;
-    background-color: rgb(33, 65, 161);
     position: relative;
     height: 100%;
+    font-family: 'Silkscreen', monospace;
+}
+
+body {
+    background-image: url(../Images/Background.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 nav {
@@ -17,7 +29,7 @@ nav {
 
 nav a {
     display: inline-block;
-    padding: 0 10px;
+    padding: 10px;
     color: black;
     text-decoration: none;
 }
