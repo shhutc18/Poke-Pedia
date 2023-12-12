@@ -129,11 +129,15 @@ async function getPokemonData() {
                 console.log("There was a problem: ", error.message);
             });
     }
+    $(searchInput).autocomplete({
+        source: pokemonArray.map(pokemon => pokemon.name)
+    });
 }
 
 searchButton.addEventListener('click', function() {
     searchPokemon(searchInput.value);
 });
+
 
 
 getPokemonData();
