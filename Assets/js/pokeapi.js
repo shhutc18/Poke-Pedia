@@ -7,34 +7,25 @@ const pokemonEndpoint = 'pokemon/';
 const pokemon = "pikachu";
 // this is the full url to the api endpoint
 let apiURL = staticURL + pokemonEndpoint + pokemon;
-
-// logging the pokemon array to the console for testing
-let pokemonArray = getPokemonData().then(pokemonArray => {
-    console.log(pokemonArray);
-});
-
-
-console.log(apiURL);
+let pokemonArray = [];
 
 // fetch request using the apiURL
-fetch(apiURL)
-    .then(function(response) {
-        // if the response is successful, return the json data
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error("There was a problem retrieving the pokemon data. Most likely the pokemon is misspelled or does not exist.");
-        }
-    })
-    .then(function(pokemonData) {
-        // log the data to the console for testing
-        console.log(pokemonData);
-        // display the pokemon data on the page
-        displayPokemon(pokemonData);
-    })
-    .catch(function(error) {
-        console.log("There was a problem: ", error.message);
-    });
+function searchPokemon() {
+    fetch(apiURL)
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error("There was a problem retrieving the pokemon data. Most likely the pokemon is misspelled or does not exist.");
+            }
+        })
+        .then(function(pokemonData) {
+            displayPokemon(pokemonData);
+        })
+        .catch(function(error) {
+            console.log("There was a problem: ", error.message);
+        });
+}
 
 // function to generate the pokemon data on the page
 // for easier reading, I broke the data up into separate functions
@@ -135,5 +126,10 @@ async function getPokemonData() {
     }
 }
 
-
-
+// sets the pokemon data to a variable 
+getPokemonData().then(data => {
+    data.results.forEach(pokemon => {
+        pokemonArray.push(pokemon);
+    });
+    console.log(pokemonArray);
+});
