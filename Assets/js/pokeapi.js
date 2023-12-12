@@ -1,4 +1,6 @@
 //https://pokeapi.co/
+let searchInput = document.getElementById('searchInput');
+let searchButton = document.getElementById('searchButton');
 let pokemonArray = [];
 
 // input: pokemon name as a string
@@ -128,7 +130,13 @@ async function getPokemonData() {
             });
     }
 }
-    
+
+searchButton.addEventListener('click', function() {
+    searchPokemon(searchInput.value);
+});
+
+
 getPokemonData();
 
-searchPokemon('squirtle');
+
+
