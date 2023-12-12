@@ -1,16 +1,12 @@
 //https://pokeapi.co/
-// this is the base url for the api
-const staticURL = 'https://pokeapi.co/api/v2/';
-// this is the endpoint for the api to get a pokemon by name or id ex: https://pokeapi.co/api/v2/pokemon/pikachu
-const pokemonEndpoint = 'pokemon/';
-// hardcoding a pokemon name for testing
-const pokemon = "pikachu";
-// this is the full url to the api endpoint
-let apiURL = staticURL + pokemonEndpoint + pokemon;
 let pokemonArray = [];
 
-// fetch request using the apiURL
-function searchPokemon() {
+// input: pokemon name as a string
+// results: pokemon data is fetched and displayed on the page
+// for testing purposes, I am just logging the data to the console
+function searchPokemon(name) {
+    let apiURL = pokemonArray.find(pokemon => pokemon.name === name).url;
+    console.log(apiURL);
     fetch(apiURL)
         .then(function(response) {
             if (response.ok) {
@@ -80,17 +76,15 @@ function displayPokemonMoves(moves) {
     });
 }
 
-// async function to wait for the generation data to be returned
 async function displayPokemonGeneration(speciesURL) {
     let generation = await getPokemonGeneration(speciesURL);
     console.log(generation);
 }
 
-// gets the pokemon species data and returns the generation name
+// parameters: speciesURL from the current pokemon data
+// returned: generation name as a string
 async function getPokemonGeneration(speciesURL) {
-    // scoped variable to hold the generation
     let generation = "";
-    // fetch request using the speciesURL passed in from the pokemon data
     await fetch(speciesURL)
         .then(function(response) {
             if (response.ok) {
@@ -106,30 +100,35 @@ async function getPokemonGeneration(speciesURL) {
             console.log("There was a problem: ", error.message);
         });
 
-    // return the generation
     return generation;
 }
 
-// gets all pokemon objects from the api
-// this is a very large array, so it is stored in local storage to prevent multiple api calls
-// can implement this in the future to prevent calling the api everytime the user searches for a pokemon
+// parameters: none
+// results: pokemonArray is populated with 1118 pokemon objects
+// each pokemon object has a name and url property
 async function getPokemonData() {
     const storedData = localStorage.getItem('pokemonData');
-
     if (storedData) {
-        return JSON.parse(storedData);
+        pokemonArray = JSON.parse(storedData).results;
     } else {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1118');
-        const data = await response.json();
-        localStorage.setItem('pokemonData', JSON.stringify(data));
-        return data;
+        await fetch('https://pokeapi.co/api/v2/pokemon?limit=1118')
+            .then(function(response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("There was a problem retrieving the pokemon data.");
+                }
+            })
+            .then(function(pokemonData) {
+                localStorage.setItem('pokemonData', JSON.stringify(pokemonData));
+                pokemonArray = pokemonData.results;
+            })
+            .catch(function(error) {
+                console.log("There was a problem: ", error.message);
+            });
     }
 }
+    
+getPokemonData();
 
-// sets the pokemon data to a variable 
-getPokemonData().then(data => {
-    data.results.forEach(pokemon => {
-        pokemonArray.push(pokemon);
-    });
-    console.log(pokemonArray);
-});
+searchPokemon('squirtle');
