@@ -21,18 +21,6 @@ body {
     background-attachment: fixed;
 }
 
-nav {
-    display: flex;
-    align-items: center;
-}
-
-nav a {
-    display: inline-block;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-}
-
-h2 {
+h2, p {
     font-family: 'Silkscreen', sans-serif;
 }
