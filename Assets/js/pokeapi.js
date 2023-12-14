@@ -2,6 +2,16 @@
 let searchInput = document.getElementById('searchInput');
 let searchButton = document.getElementById('searchButton');
 let container = document.getElementById('pokemonContainer');
+let pokemonNameEl = document.getElementById('pokemonNameEl');
+let pokemonGenerationEl = document.getElementById('pokemonGenerationEl');
+let pokemonSpriteEl = document.getElementById('pokemonSpriteEl');
+let pokemonShinySpriteEl = document.getElementById('pokemonSpriteEl');
+let pokemonTypeEl = document.getElementById('pokemonTypeEl');
+let pokemonDexNumberEl = document.getElementById('pokemonDexNumberEl');
+let pokemonHeightWeightEl = document.getElementById('pokemonHeightWeightEl');
+let pokemonStatsEl = document.getElementById('pokemonStatsEl');
+let pokemonMovesEl = document.getElementById('pokemonMovesEl');
+
 
 let pokemonArray = [];
 
