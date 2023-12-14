@@ -171,6 +171,10 @@ searchButton.on('click', function() {
     searchPokemon(searchInput.val());
 });
 
+$('#logo').on('click', function() {
+    window.location.href = 'index.html';
+});
+
 $(document).ready(function() {
     getPokemonData();
     // check for passed in pokemon name in the url
