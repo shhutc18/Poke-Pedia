@@ -2,14 +2,6 @@ header {
     background-image: url(../Images/croppedpokeball.png);
     background-repeat: no-repeat;
     background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px 20px;
-    font-size: 20px;
-    color: red;
-    position: relative;
-    height: 100%;
     font-family: 'Silkscreen', monospace;
 }
 
@@ -21,18 +13,6 @@ body {
     background-attachment: fixed;
 }
 
-nav {
-    display: flex;
-    align-items: center;
-}
-
-nav a {
-    display: inline-block;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-}
-
-h2 {
+h2, p {
     font-family: 'Silkscreen', sans-serif;
 }

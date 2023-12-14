@@ -6,37 +6,62 @@
     <title>My Poke-Pedia</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen" rel="stylesheet">
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- custom css -->
     <link href="Assets/css/style.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
-    <header class="p-8">
+    <header class="flex items-center justify-between p-8 px-5 text-lg text-red-500 relative h-full">
         <div class="flex flex-col">
             <h1 class="text-6xl">Poke-Pedia</h1>
             <p class="text-2xl pl-12 text-gray-500">A Pokemon Encyclopedia</p>
         </div>
-        <nav>
-            <a href="Browse" class="opacity-75 hover:opacity-100">Browse Pokemon Here</a>
+        <nav class="flex items-center">
+            <a href="browse.html" class="opacity-75 hover:opacity-100 inline-block p-2 text-black no-underline">Browse Pokemon Here</a>
         </nav>
     </header>
 
-    <main class="flex justify-between">
-
+    <main>
         <!-- Search bar & search button -->
-        <div class="w-3/4 h-24 flex items-center justify-center">
-            <input type="search" placeholder="Search Pokemon" class="w-1/2 h-12 px-4">
-            <button class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Search</button>
-        </div>
+        <section class="flex justify-start">
+            <div class="w-3/4 h-24 flex items-center justify-center">
+                <input type="search" placeholder="Search Pokemon" class="w-1/2 h-12 px-4" id="searchInput">
+                <button class="ml-2 bg-blue-500 text-white px-4 py-2 rounded" id="searchButton">Search</button>
+            </div>
+        </section>
+        
+        <section class="grid grid-cols-3">
+            <!-- Pokemon Search Container -->
+            <div class="flex col-span-2 m-2 h-full border border-black bg-white bg-opacity-50 rounded" id="pokemonContainer">
+                <div class="flex items-center flex-wrap">
+                    <div id="pokemonNameEl" class="text-2xl ml-4"></div>
+                    <div id="pokemoGenerationEl" class="text-2xl ml-4"></div>
+                    <div id="pokemonTypeEl" class="text-2xl ml-4"></div>
+                    <div id="pokemonDexNumberEl" class="text-2xl ml-4"></div>
+                    <div id="pokemonHeightEl" class="text-2xl ml-4"></div>
+                    <div id="pokemonWeightEl" class="text-2xl ml-4"></div>
+                    <div id="pokemonStatsEl" class="text-2xl ml-4"></div>
+                    <div id="pokemonMovesEl" class="text-2xl"></div>
+                </div>
     
-        <!-- Section for Pokemon of the day -->
-        <div class="w-1/4 h-24 border border-black">
-            <h2 class="text-2xl text-center pt-4">Pokemon of the Day</h2>
-            <p class="text-center">Today is:</p>
-        </div>
+            </div>
+            
+            <!-- Pokemon of the Day Container -->
+            <div class="col-span-1 m-2 h-full border border-black bg-white bg-opacity-50 rounded" id="pokemonOfTheDayContainer">
+                <h2 class="text-2xl text-center pt-4">Pokemon of the Day</h2>
+                <p class="text-center">Today is:</p>
+            </div>
+        </section>
 
     </main>
-
     <!-- PokeApi Script -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="Assets/js/pokeapi.js"></script>
 </body>
 </html>
