@@ -171,8 +171,10 @@ searchButton.on('click', function() {
     searchPokemon(searchInput.val());
 });
 
-// called on page load to populate the pokemonArray
-getPokemonData();
+$(document).ready(function() {
+    getPokemonData();
+    // check for passed in pokemon name in the url
+});
 
 
 
