@@ -26,7 +26,10 @@ function displayFilteredPokemon(filteredPokemon) {
 
     filteredPokemon.forEach(pokemon => {
         const listItem = document.createElement('li');
-        listItem.textContent = pokemon.name;
+        const link = document.createElement('a');
+        link.setAttribute('href', `index.html?name=${pokemon.name}`);
+        link.textContent = pokemon.name;
+        listItem.appendChild(link);
         pokemonLetterList.appendChild(listItem);
     });
 }
