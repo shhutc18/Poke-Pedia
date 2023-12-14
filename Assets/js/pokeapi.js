@@ -174,6 +174,11 @@ searchButton.on('click', function() {
 $(document).ready(function() {
     getPokemonData();
     // check for passed in pokemon name in the url
+    let queryString = window.location.search;
+    let name = queryString.split('=')[1];
+    if (name) {
+        searchPokemon(name);
+    }
 });
 
 
