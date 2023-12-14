@@ -19,7 +19,6 @@ let pokemonArray = [];
 // results: pokemon data is fetched and displayed on the page
 function searchPokemon(name) {
     let apiURL = pokemonArray.find(pokemon => pokemon.name === name).url;
-    console.log(apiURL);
     fetch(apiURL)
         .then(function(response) {
             if (response.ok) {
@@ -168,8 +167,8 @@ async function getPokemonData() {
 }
 
 // event listener for the search button
-searchButton.addEventListener('click', function() {
-    searchPokemon(searchInput.value);
+searchButton.on('click', function() {
+    searchPokemon(searchInput.val());
 });
 
 // called on page load to populate the pokemonArray
