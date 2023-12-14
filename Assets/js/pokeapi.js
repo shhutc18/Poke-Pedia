@@ -1,6 +1,8 @@
 //https://pokeapi.co/
 let searchInput = document.getElementById('searchInput');
 let searchButton = document.getElementById('searchButton');
+let container = document.getElementById('pokemonContainer');
+
 let pokemonArray = [];
 
 // input: pokemon name as a string
@@ -29,58 +31,77 @@ function searchPokemon(name) {
 // for easier reading, I broke the data up into separate functions
 // for testing, I am just logging the data to the console
 function displayPokemon(data) {
+    displayPokemonSprite(data.sprites.front_default);
+    displayPokemonSprite(data.sprites.front_shiny);
     displayPokemonName(data.name);
+    displayPokemonGeneration(data.species.url);
     displayPokemonType(data.types);
     displayPokemonDexNumber(data.id);
     displayPokemonHeightWeight(data.height, data.weight);
-    displayPokemonSprite(data.sprites.front_default);
-    displayPokemonSprite(data.sprites.front_shiny);
-    displayPokemonGeneration(data.species.url);
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
 }
 
 function displayPokemonName(name) {
     console.log(name);
+    let pokemonName = document.createElement('h3');
+    pokemonName.innerText = name;
+    container.appendChild(pokemonName);
 }
 
 function displayPokemonType(types) {
     types.forEach(type => {
-        console.log(type.type.name);
+        let pokemonType = document.createElement('p');
+        pokemonType.innerText = type.type.name;
+        container.appendChild(pokemonType);
     });
 }
 
 function displayPokemonDexNumber(dexNumber) {
-    console.log("PokeDex Number:", dexNumber);
+    let pokemonDexNumber = document.createElement('p');
+    pokemonDexNumber.innerText = dexNumber;
+    container.appendChild(pokemonDexNumber);
 }
 
 function displayPokemonHeightWeight(height, weight) {
-    console.log("Height:", height);
-    console.log("Weight:", weight);
+    let pokemonHeight = document.createElement('p');
+    pokemonHeight.innerText = "Height: " + height;
+    container.appendChild(pokemonHeight);
+    let pokemonWeight = document.createElement('p');
+    pokemonWeight.innerText = "Weight: " + weight;
+    container.appendChild(pokemonWeight);
 }
 
 function displayPokemonSprite(spriteURL) {
     // create an image element and set the src attribute to the spriteURL
     let pokemonImage = document.createElement('img');
     pokemonImage.setAttribute('src', spriteURL);
-    document.body.appendChild(pokemonImage);
+    container.appendChild(pokemonImage);
 }
 
 function displayPokemonStats(stats) {
     stats.forEach(stat => {
-        console.log(stat.stat.name, stat.base_stat);
+        let pokemonStat = document.createElement('p');
+        pokemonStat.innerText = stat.stat.name + ": " + stat.base_stat;
+        container.appendChild(pokemonStat);
     });
 }
 
 function displayPokemonMoves(moves) {
+    let pokemonMoves = document.createElement('ul');
     moves.forEach(move => {
-        console.log(move.move.name);
+        let pokemonMove = document.createElement('li');
+        pokemonMove.innerText = move.move.name;
+        pokemonMoves.appendChild(pokemonMove);
     });
+    container.appendChild(pokemonMoves);
 }
 
 async function displayPokemonGeneration(speciesURL) {
     let generation = await getPokemonGeneration(speciesURL);
-    console.log(generation);
+    let pokemonGeneration = document.createElement('p');
+    pokemonGeneration.innerText = generation;
+    container.appendChild(pokemonGeneration);
 }
 
 // parameters: speciesURL from the current pokemon data

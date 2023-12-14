@@ -6,6 +6,9 @@
     <title>My Poke-Pedia</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen" rel="stylesheet">
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- custom css -->
     <link href="Assets/css/style.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,24 +28,29 @@
         </nav>
     </header>
 
-    <main class="flex justify-between">
-
+    <main>
         <!-- Search bar & search button -->
-        <div class="w-3/4 h-24 flex items-center justify-center">
-            <input type="search" placeholder="Search Pokemon" class="w-1/2 h-12 px-4" id="searchInput">
-            <button class="ml-2 bg-blue-500 text-white px-4 py-2 rounded" id="searchButton">Search</button>
-        </div>
+        <section class="flex justify-start">
+            <div class="w-3/4 h-24 flex items-center justify-center">
+                <input type="search" placeholder="Search Pokemon" class="w-1/2 h-12 px-4" id="searchInput">
+                <button class="ml-2 bg-blue-500 text-white px-4 py-2 rounded" id="searchButton">Search</button>
+            </div>
+        </section>
+        
+        <section class="grid grid-cols-3">
+            <!-- Pokemon Search Container -->
+            <div class="col-span-2 m-2 h-full border border-black bg-white bg-opacity-50 rounded" id="pokemonContainer">
     
-        <!-- Section for Pokemon of the day -->
-        <div class="w-1/4 h-24 border border-black bg-white bg-opacity-50 rounded">
-            <h2 class="text-2xl text-center pt-4">Pokemon of the Day</h2>
-            <p class="text-center">Today is:</p>
-        </div>
+            </div>
+            
+            <!-- Pokemon of the Day Container -->
+            <div class="col-span-1 m-2 h-full border border-black bg-white bg-opacity-50 rounded" id="pokemonOfTheDayContainer">
+                <h2 class="text-2xl text-center pt-4">Pokemon of the Day</h2>
+                <p class="text-center">Today is:</p>
+            </div>
+        </section>
 
     </main>
-
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- PokeApi Script -->
     <script src="Assets/js/pokeapi.js"></script>
 </body>
