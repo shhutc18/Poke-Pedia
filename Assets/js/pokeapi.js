@@ -50,25 +50,25 @@ function displayPokemon(data) {
 }
 
 function displayPokemonName(name) {
-    pokemonNameEl.innerText = name;
+    pokemonNameEl.text(name);
 }
 
 //parameters: types is an array of obects included in the api data. Each object has a name property that is the type name
 //results: all types the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonType(types) {
     types.forEach(type => {
-        let pokemonType = document.createElement('li');
-        pokemonType.innerText = type.type.name;
-        pokemonTypeEl.appendChild(pokemonType);
+        let pokemonType = $('<li>');
+        pokemonType.text(type.type.name);
+        pokemonTypeEl.append(pokemonType);
     });
 }
 
 function displayPokemonDexNumber(dexNumber) {
-    pokemonDexNumberEl.innerText = dexNumber;
+    pokemonDexNumberEl.text(dexNumber);
 }
 
 function displayPokemonHeightWeight(height, weight) {
-    pokemonHeightWeightEl.innerText = height + " inches, " + weight + " lbs";
+    pokemonHeightWeightEl.text(height + " inches, " + weight + " lbs");
 }
 
 //parameters: spriteURL is the url of the sprite to be displayed
@@ -76,11 +76,12 @@ function displayPokemonHeightWeight(height, weight) {
 //            true = shiny sprite, false = default sprite
 //results: the default sprite or shiny sprite is appended to the page depending on the value of shiny
 function displayPokemonSprite(spriteURL, shiny) {
-    let pokemonImage = document.createElement('img');
-    pokemonImage.setAttribute('src', spriteURL);
+    let pokemonImage = $('<img>', {src: spriteURL});
     if (shiny) {
-        pokemonShinySpriteEl.appendChild(pokemonImage);
-    } else pokemonSpriteEl.appendChild(pokemonImage);
+        pokemonShinySpriteEl.append(pokemonImage);
+    } else {
+        pokemonSpriteEl.append(pokemonImage);
+    }
 }
 
 //parameters: stats is an array of objects included in the api data. 
@@ -89,9 +90,9 @@ function displayPokemonSprite(spriteURL, shiny) {
 //results: all stats the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonStats(stats) {
     stats.forEach(stat => {
-        let pokemonStat = document.createElement('li');
-        pokemonStat.innerText = stat.stat.name + ": " + stat.base_stat;
-        pokemonStatsEl.appendChild(pokemonStat);
+        let pokemonStat = $('<li>');
+        pokemonStat.text(stat.stat.name + ": " + stat.base_stat);
+        pokemonStatsEl.append(pokemonStat);
     });
 }
 
@@ -100,11 +101,10 @@ function displayPokemonStats(stats) {
 //results: all moves the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonMoves(moves) {
     moves.forEach(move => {
-        let pokemonMove = document.createElement('li');
-        pokemonMove.innerText = move.move.name;
-        pokemonMoves.appendChild(pokemonMove);
+        let pokemonMove = $('<li>');
+        pokemonMove.text(move.move.name);
+        pokemonMovesEl.append(pokemonMove);
     });
-    pokemonMovesEl.appendChild(pokemonMoves);
 }
 
 // parameters: speciesURL which is included in the initial pokemon data
@@ -112,7 +112,7 @@ function displayPokemonMoves(moves) {
 async function displayPokemonGeneration(speciesURL) {
     //api request to get the generation name
     let generation = await getPokemonGeneration(speciesURL);
-    pokemonGenerationEl.innerText = generation;
+    pokemonGenerationEl.text(generation);
 }
 
 // parameters: speciesURL from the current pokemon data
