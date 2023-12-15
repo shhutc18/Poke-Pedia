@@ -186,4 +186,40 @@ $(document).ready(function() {
 });
 
 
+// Pokemon of Day
+
+// Display current date
+document.addEventListener('DOMContentLoaded', async (event) => {
+    const h2Element = document.querySelector('h2');
+    const dateParagraph = document.createElement('p');
+    dateParagraph.className = 'text-center';
+    const currentDate = dayjs().format('MMMM D, YYYY');
+    dateParagraph.textContent = `Today is: ${currentDate}`;
+    h2Element.insertAdjacentElement('afterend', dateParagraph);
+
+    // Generate a random Pokemon ID
+    const pokemonId = Math.floor(Math.random() * 898) + 1;
+
+    // Fetch the Pokemon data from the PokeAPI
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+    const pokemonData = await response.json();
+
+    // Create and append the Pokemon sprite
+    const pokemonSpriteEl = document.createElement('img');
+    pokemonSpriteEl.src = pokemonData.sprites.front_default;
+    pokemonSpriteEl.className = 'mx-auto'; // Center the image
+    h2Element.insertAdjacentElement('afterend', pokemonSpriteEl);
+
+    // Create and append the Pokemon name
+    const pokemonNameEl = document.createElement('p');
+    pokemonNameEl.textContent = pokemonData.name;
+    pokemonNameEl.className = 'text-center';
+    h2Element.insertAdjacentElement('afterend', pokemonNameEl);
+});
+
+
+
+
+
+
 
