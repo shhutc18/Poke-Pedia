@@ -13,6 +13,6 @@ body {
     background-attachment: fixed;
 }
 
-h2, p {
+h2, p, h3 {
     font-family: 'Silkscreen', sans-serif;
 }
