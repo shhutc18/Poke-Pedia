@@ -33,6 +33,8 @@ function searchPokemon(name) {
         .catch(function(error) {
             console.log("There was a problem: ", error.message);
         });
+
+        
 }
 
 // parameters: data is the current pokemon data returned from the api
@@ -47,6 +49,8 @@ function displayPokemon(data) {
     displayPokemonHeightWeight(data.height, data.weight);
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
+
+    
 }
 
 function displayPokemonName(name) {
@@ -72,7 +76,7 @@ function displayPokemonDexNumber(dexNumber) {
 function displayPokemonHeightWeight(height, weight) {
     pokemonHeightWeightEl.empty();
     let pokemonHeightWeightHeader = $('<p>');
-    pokemonHeightWeightHeader.text("Height: " + height + " inches, " + "Weight: " + weight + " lbs");
+    pokemonHeightWeightHeader.text("Height: " + (height / 10) + " meters, " + "Weight: " + (weight / 10) + " kgs");
     pokemonHeightWeightEl.append(pokemonHeightWeightHeader);
 }
 
@@ -189,6 +193,7 @@ async function getPokemonData() {
 // event listener for the search button
 searchButton.on('click', function() {
     searchPokemon(searchInput.val());
+   
 });
 
 $('#logo').on('click', function() {
@@ -217,29 +222,39 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     dateParagraph.textContent = `Today is: ${currentDate}`;
     h2Element.insertAdjacentElement('afterend', dateParagraph);
 
+    let pokemonOfDay = JSON.parse(localStorage.getItem('pokemonOfDay'));
+    let pokemonOfDayData;
+    if (pokemonOfDay == null || pokemonOfDay == undefined || pokemonOfDay.date != currentDate) {
+
     // Generate a random Pokemon ID
     const pokemonId = Math.floor(Math.random() * 898) + 1;
 
     // Fetch the Pokemon data from the PokeAPI
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-    const pokemonData = await response.json();
+    pokemonOfDayData = await response.json();
 
-    // Create and append the Pokemon sprite
+    pokemonOfDay = {
+        date: currentDate,
+        pokemon: pokemonOfDayData
+    };
+    localStorage.setItem('pokemonOfDay', JSON.stringify(pokemonOfDay));
+
+    } else {
+        pokemonOfDayData = pokemonOfDay.pokemon;
+    }
+
+    // Create and append the Pokemon sprite\
+    const pokemonSpriteContainer = document.createElement('a');
+    pokemonSpriteContainer.href = `index.html?name=${pokemonOfDayData.name}`;
     const pokemonSpriteEl = document.createElement('img');
-    pokemonSpriteEl.src = pokemonData.sprites.front_default;
+    pokemonSpriteEl.src = pokemonOfDayData.sprites.front_default;
     pokemonSpriteEl.className = 'mx-auto'; // Center the image
-    h2Element.insertAdjacentElement('afterend', pokemonSpriteEl);
+    pokemonSpriteContainer.appendChild(pokemonSpriteEl);
+    h2Element.insertAdjacentElement('afterend', pokemonSpriteContainer);
 
     // Create and append the Pokemon name
     const pokemonNameEl = document.createElement('p');
-    pokemonNameEl.textContent = pokemonData.name;
+    pokemonNameEl.textContent = pokemonOfDayData.name;
     pokemonNameEl.className = 'text-center';
     h2Element.insertAdjacentElement('afterend', pokemonNameEl);
 });
-
-
-
-
-
-
-
