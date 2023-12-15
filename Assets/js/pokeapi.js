@@ -2,7 +2,6 @@
 //html variables
 let searchInput = $('#searchInput');
 let searchButton = $('#searchButton');
-let favoriteButton = $('#favoriteButton');
 let container = $('#pokemonContainer');
 let pokemonNameEl = $('#pokemonNameEl');
 let pokemonGenerationEl = $('#pokemonGenerationEl');
@@ -34,6 +33,8 @@ function searchPokemon(name) {
         .catch(function(error) {
             console.log("There was a problem: ", error.message);
         });
+
+        
 }
 
 // parameters: data is the current pokemon data returned from the api
@@ -49,7 +50,6 @@ function displayPokemon(data) {
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
 
-    favoriteButton.classList.remove('hidden');
     
 }
 
@@ -191,6 +191,7 @@ async function getPokemonData() {
 // event listener for the search button
 searchButton.on('click', function() {
     searchPokemon(searchInput.val());
+   
 });
 
 $('#logo').on('click', function() {
