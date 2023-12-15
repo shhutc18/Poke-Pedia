@@ -16,3 +16,7 @@ body {
 h2, p {
     font-family: 'Silkscreen', sans-serif;
 }
+
+#logo {
+    cursor: pointer;
+}
