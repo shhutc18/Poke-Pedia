@@ -82,6 +82,7 @@ function displayPokemonHeightWeight(height, weight) {
 //results: the default sprite or shiny sprite is appended to the page depending on the value of shiny
 function displayPokemonSprite(spriteURL, shiny) {
     let pokemonImage = $('<img>', {src: spriteURL});
+    pokemonImage.css('width', '200px'); // Set the width of the image to 200 pixels
     if (shiny) {
         pokemonShinySpriteEl.empty();
         pokemonShinySpriteEl.append(pokemonImage);
