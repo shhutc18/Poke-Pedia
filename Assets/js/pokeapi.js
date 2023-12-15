@@ -56,6 +56,7 @@ function displayPokemonName(name) {
 //parameters: types is an array of obects included in the api data. Each object has a name property that is the type name
 //results: all types the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonType(types) {
+    pokemonTypeEl.empty();
     let pokemonTypeHeader = $('<p>');
     pokemonTypeHeader.text("Type(s): ");
     types.forEach(type => {
@@ -69,6 +70,7 @@ function displayPokemonDexNumber(dexNumber) {
 }
 
 function displayPokemonHeightWeight(height, weight) {
+    pokemonHeightWeightEl.empty();
     let pokemonHeightWeightHeader = $('<p>');
     pokemonHeightWeightHeader.text("Height: " + height + " inches, " + "Weight: " + weight + " lbs");
     pokemonHeightWeightEl.append(pokemonHeightWeightHeader);
@@ -81,8 +83,10 @@ function displayPokemonHeightWeight(height, weight) {
 function displayPokemonSprite(spriteURL, shiny) {
     let pokemonImage = $('<img>', {src: spriteURL});
     if (shiny) {
+        pokemonShinySpriteEl.empty();
         pokemonShinySpriteEl.append(pokemonImage);
     } else {
+        pokemonSpriteEl.empty();
         pokemonSpriteEl.append(pokemonImage);
     }
 }
@@ -92,6 +96,7 @@ function displayPokemonSprite(spriteURL, shiny) {
 //            and a base_stat property that is the stat value
 //results: all stats the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonStats(stats) {
+    pokemonStatsEl.empty();
     let pokemonStatHeader = $('<li>');
     pokemonStatHeader.text("Base Stats");
     pokemonStatsEl.append(pokemonStatHeader);
@@ -106,6 +111,7 @@ function displayPokemonStats(stats) {
 //            Each object has a move property that is the move name
 //results: all moves the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonMoves(moves) {
+    pokemonMovesEl.empty();
     pokemonMovesEl.attr('class', 'flex flex-wrap text-2xl w-full list-none border border-black rounded');
     let pokemonMoveHeader = $('<li>');
     pokemonMoveHeader.attr('class', 'm-1')
