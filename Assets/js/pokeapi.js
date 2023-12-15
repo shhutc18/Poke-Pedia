@@ -2,6 +2,7 @@
 //html variables
 let searchInput = $('#searchInput');
 let searchButton = $('#searchButton');
+let favoriteButton = $('#favoriteButton');
 let container = $('#pokemonContainer');
 let pokemonNameEl = $('#pokemonNameEl');
 let pokemonGenerationEl = $('#pokemonGenerationEl');
@@ -47,6 +48,9 @@ function displayPokemon(data) {
     displayPokemonHeightWeight(data.height, data.weight);
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
+
+    favoriteButton.classList.remove('hidden');
+    
 }
 
 function displayPokemonName(name) {
@@ -184,6 +188,5 @@ $(document).ready(function() {
         searchPokemon(name);
     }
 });
-
 
 
