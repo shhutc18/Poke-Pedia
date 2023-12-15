@@ -112,7 +112,7 @@ function displayPokemonStats(stats) {
 //results: all moves the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonMoves(moves) {
     pokemonMovesEl.empty();
-    pokemonMovesEl.attr('class', 'flex flex-wrap text-2xl w-full list-none border border-black rounded');
+    pokemonMovesEl.attr('class', 'flex flex-wrap text-md w-full list-none border border-black rounded');
     let pokemonMoveHeader = $('<li>');
     pokemonMoveHeader.attr('class', 'm-1')
     pokemonMoveHeader.text("Learnable Moves: " + moves.length);
@@ -120,6 +120,7 @@ function displayPokemonMoves(moves) {
     moves.forEach(move => {
         let pokemonMove = $('<li>');
         pokemonMove.text(move.move.name);
+        pokemonMove.append(',')
         pokemonMove.attr('class', 'm-1')
         pokemonMovesEl.append(pokemonMove);
     });

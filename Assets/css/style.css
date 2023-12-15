@@ -11,10 +11,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-h2, p, h3 {
-    font-family: 'Silkscreen', sans-serif;
+    font-family: 'Silkscreen', monospace;
 }
 
 #logo {
