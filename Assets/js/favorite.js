@@ -5,6 +5,33 @@ let pokemonSprite = document.getElementById('pokemonSpriteEl');
 let pokemonName = document.getElementById('pokemonNameEl');
 
 favoriteButton.addEventListener('click', function() {
-    localStorage.setItem('pokemonSprite', pokemonSprite.innerHTML);
-    localStorage.setItem('pokemonName', pokemonName.innerHTML);
+    let favorite= localStorage.getItem('favorites');
+    if (favorite) {
+        favorite = JSON.parse(favorite);
+    } else {
+        favorite = [];
+    }
+pokemonSprite = pokemonSprite.children[0].src;
+    let newFavorite= {
+        sprite: pokemonSprite,
+        name: pokemonName.textContent,
+    };
+
+console.log(pokemonSprite);
+    favorite.push(newFavorite);
+
+    localStorage.setItem('favorites', JSON.stringify(favorite));
 });
+
+let favoritesEl = document.getElementById('favoritesEl');
+let favorites = JSON.parse(localStorage.getItem('favorites'));
+
+console.log(favorites);
+
+
+favorites.forEach(favorite =>{
+    let newElement = document.createElement('img');
+    newElement.src = favorite.sprite;
+
+    favoritesEl.appendChild(newElement);
+})
