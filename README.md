@@ -22,11 +22,11 @@ This application was completed by Shelby Hutchinson, Chase Seeberger, Will Schic
 
 ## Link
 
-<!-- Link to DEPLOYED application -->
+https://shhutc18.github.io/Poke-Pedia/
 
 ## Screenshot
 
-<!-- Screenshot of finished application -->
+<img src="./Assets/Images/Final.png">
 
 ## License
 
