@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     h2Element.insertAdjacentElement('afterend', dateParagraph);
 
     let pokemonOfDay = JSON.parse(localStorage.getItem('pokemonOfDay'));
-    let pokemonData;
+    let pokemonOfDayData;
     if (pokemonOfDay == null || pokemonOfDay == undefined || pokemonOfDay.date != currentDate) {
 
     // Generate a random Pokemon ID
@@ -225,30 +225,30 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
     // Fetch the Pokemon data from the PokeAPI
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-    pokemonData = await response.json();
+    pokemonOfDayData = await response.json();
 
     pokemonOfDay = {
         date: currentDate,
-        pokemon: pokemonData
+        pokemon: pokemonOfDayData
     };
     localStorage.setItem('pokemonOfDay', JSON.stringify(pokemonOfDay));
 
     } else {
-        pokemonData = pokemonOfDay.pokemon;
+        pokemonOfDayData = pokemonOfDay.pokemon;
     }
 
     // Create and append the Pokemon sprite\
     const pokemonSpriteContainer = document.createElement('a');
-    pokemonSpriteContainer.href = `index.html?name=${pokemonData.name}`;
+    pokemonSpriteContainer.href = `index.html?name=${pokemonOfDayData.name}`;
     const pokemonSpriteEl = document.createElement('img');
-    pokemonSpriteEl.src = pokemonData.sprites.front_default;
+    pokemonSpriteEl.src = pokemonOfDayData.sprites.front_default;
     pokemonSpriteEl.className = 'mx-auto'; // Center the image
     pokemonSpriteContainer.appendChild(pokemonSpriteEl);
     h2Element.insertAdjacentElement('afterend', pokemonSpriteContainer);
 
     // Create and append the Pokemon name
     const pokemonNameEl = document.createElement('p');
-    pokemonNameEl.textContent = pokemonData.name;
+    pokemonNameEl.textContent = pokemonOfDayData.name;
     pokemonNameEl.className = 'text-center';
     h2Element.insertAdjacentElement('afterend', pokemonNameEl);
 });
