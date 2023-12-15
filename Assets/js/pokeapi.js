@@ -33,6 +33,8 @@ function searchPokemon(name) {
         .catch(function(error) {
             console.log("There was a problem: ", error.message);
         });
+
+        
 }
 
 // parameters: data is the current pokemon data returned from the api
@@ -47,6 +49,8 @@ function displayPokemon(data) {
     displayPokemonHeightWeight(data.height, data.weight);
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
+
+    
 }
 
 function displayPokemonName(name) {
@@ -188,6 +192,7 @@ async function getPokemonData() {
 // event listener for the search button
 searchButton.on('click', function() {
     searchPokemon(searchInput.val());
+   
 });
 
 $('#logo').on('click', function() {
@@ -252,10 +257,3 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     pokemonNameEl.className = 'text-center';
     h2Element.insertAdjacentElement('afterend', pokemonNameEl);
 });
-
-
-
-
-
-
-
