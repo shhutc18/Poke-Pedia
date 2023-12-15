@@ -247,6 +247,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const pokemonSpriteContainer = document.createElement('a');
     pokemonSpriteContainer.href = `index.html?name=${pokemonOfDayData.name}`;
     const pokemonSpriteEl = document.createElement('img');
+    pokemonSpriteEl.style.width = '200px'; // Set the width to 200 pixels
+    pokemonSpriteEl.style.height = '200px'; // Set the height to 200 pixels
     pokemonSpriteEl.src = pokemonOfDayData.sprites.front_default;
     pokemonSpriteEl.className = 'mx-auto'; // Center the image
     pokemonSpriteContainer.appendChild(pokemonSpriteEl);
