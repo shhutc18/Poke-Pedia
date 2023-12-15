@@ -49,8 +49,7 @@ function displayPokemon(data) {
     displayPokemonHeightWeight(data.height, data.weight);
     displayPokemonStats(data.stats);
     displayPokemonMoves(data.moves);
-
-    
+    $("#favoriteButton").attr("hidden", false);
 }
 
 function displayPokemonName(name) {
