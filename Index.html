@@ -24,7 +24,7 @@
             <p class="text-2xl pl-12 text-gray-500">A Pokemon Encyclopedia</p>
         </div>
         <nav class="flex items-center">
-            <a href="browse.html" class="opacity-75 hover:opacity-100 inline-block p-2 text-black no-underline">Browse Pokemon Here</a>
+            <a href="browse.html" class="text-4xl opacity-75 hover:opacity-100 inline-block p-2 text-black no-underline">Browse Pokemon Here</a>
         </nav>
     </header>
 
@@ -52,23 +52,25 @@
                         <div id="pokemonDexNumberEl" class="text-md ml-4 list-none"></div>
                     </div>
                     <div class="flex flex-col justify-center items-center p-2 m-2">
-                        <div id="pokemonTypeEl" class="text-2xl ml-4 list-none"></div>
-                        <div id="pokemonHeightWeightEl" class="text-2xl ml-4 list-none"></div>
+                        <div id="pokemonTypeEl" class="text-1xl ml-4 list-none"></div>
+                        <div id="pokemonHeightWeightEl" class="text-1xl ml-4 list-none"></div>
                     </div>
-                    <div id="pokemonStatsEl" class="flex flex-col justify-center text-2xl text-center list-none p-2 m-2"></div>
+                    <div id="pokemonStatsEl" class="flex flex-col justify-center text-1xl text-center list-none p-2 m-2"></div>
                     
                 </div>
                 <div id="pokemonMovesEl"></div>
             </div>
             
             <!-- Pokemon of the Day Container -->
-            <div class="col-span-1 m-2 h-full border border-black bg-white bg-opacity-50 rounded" id="pokemonOfTheDayContainer">
+            <div class="col-span-1 m-2 max-h-[400px] overflow-auto border border-black bg-white bg-opacity-50 rounded" id="pokemonOfTheDayContainer">
                 <h2 class="text-2xl text-center pt-4">Pokemon of the Day</h2>
-                <p class="text-center">Today is:</p>
             </div>
         </section>
 
     </main>
+
+    <!-- Day.js -->
+    <script src="https://unpkg.com/dayjs@1.10.4/dayjs.min.js"></script>
     <!-- PokeApi Script -->
     <script src="Assets/js/pokeapi.js"></script>
     <script src="./Assets/js/favorite.js"></script>

@@ -28,6 +28,7 @@ function displayFilteredPokemon(filteredPokemon) {
         const listItem = document.createElement('li');
         const link = document.createElement('a');
         link.setAttribute('href', `index.html?name=${pokemon.name}`);
+        link.setAttribute('class', 'hover:text-red-500');
         link.textContent = pokemon.name;
         listItem.appendChild(link);
         pokemonLetterList.appendChild(listItem);

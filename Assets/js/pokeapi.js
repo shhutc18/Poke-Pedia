@@ -76,7 +76,7 @@ function displayPokemonDexNumber(dexNumber) {
 function displayPokemonHeightWeight(height, weight) {
     pokemonHeightWeightEl.empty();
     let pokemonHeightWeightHeader = $('<p>');
-    pokemonHeightWeightHeader.text("Height: " + height + " inches, " + "Weight: " + weight + " lbs");
+    pokemonHeightWeightHeader.text("Height: " + (height / 10) + " meters, " + "Weight: " + (weight / 10) + " kgs");
     pokemonHeightWeightEl.append(pokemonHeightWeightHeader);
 }
 
@@ -86,6 +86,7 @@ function displayPokemonHeightWeight(height, weight) {
 //results: the default sprite or shiny sprite is appended to the page depending on the value of shiny
 function displayPokemonSprite(spriteURL, shiny) {
     let pokemonImage = $('<img>', {src: spriteURL});
+    pokemonImage.css('width', '200px'); // Set the width of the image to 200 pixels
     if (shiny) {
         pokemonShinySpriteEl.empty();
         pokemonShinySpriteEl.append(pokemonImage);
@@ -116,7 +117,7 @@ function displayPokemonStats(stats) {
 //results: all moves the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonMoves(moves) {
     pokemonMovesEl.empty();
-    pokemonMovesEl.attr('class', 'flex flex-wrap text-2xl w-full list-none border border-black rounded');
+    pokemonMovesEl.attr('class', 'flex flex-wrap text-md w-full list-none border border-black rounded');
     let pokemonMoveHeader = $('<li>');
     pokemonMoveHeader.attr('class', 'm-1')
     pokemonMoveHeader.text("Learnable Moves: " + moves.length);
@@ -124,6 +125,7 @@ function displayPokemonMoves(moves) {
     moves.forEach(move => {
         let pokemonMove = $('<li>');
         pokemonMove.text(move.move.name);
+        pokemonMove.append(',')
         pokemonMove.attr('class', 'm-1')
         pokemonMovesEl.append(pokemonMove);
     });
@@ -209,3 +211,52 @@ $(document).ready(function() {
 });
 
 
+// Pokemon of Day
+
+// Display current date
+document.addEventListener('DOMContentLoaded', async (event) => {
+    const h2Element = document.querySelector('h2');
+    const dateParagraph = document.createElement('p');
+    dateParagraph.className = 'text-center';
+    const currentDate = dayjs().format('MMMM D, YYYY');
+    dateParagraph.textContent = `Today is: ${currentDate}`;
+    h2Element.insertAdjacentElement('afterend', dateParagraph);
+
+    let pokemonOfDay = JSON.parse(localStorage.getItem('pokemonOfDay'));
+    let pokemonOfDayData;
+    if (pokemonOfDay == null || pokemonOfDay == undefined || pokemonOfDay.date != currentDate) {
+
+    // Generate a random Pokemon ID
+    const pokemonId = Math.floor(Math.random() * 898) + 1;
+
+    // Fetch the Pokemon data from the PokeAPI
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+    pokemonOfDayData = await response.json();
+
+    pokemonOfDay = {
+        date: currentDate,
+        pokemon: pokemonOfDayData
+    };
+    localStorage.setItem('pokemonOfDay', JSON.stringify(pokemonOfDay));
+
+    } else {
+        pokemonOfDayData = pokemonOfDay.pokemon;
+    }
+
+    // Create and append the Pokemon sprite\
+    const pokemonSpriteContainer = document.createElement('a');
+    pokemonSpriteContainer.href = `index.html?name=${pokemonOfDayData.name}`;
+    const pokemonSpriteEl = document.createElement('img');
+    pokemonSpriteEl.style.width = '200px'; // Set the width to 200 pixels
+    pokemonSpriteEl.style.height = '200px'; // Set the height to 200 pixels
+    pokemonSpriteEl.src = pokemonOfDayData.sprites.front_default;
+    pokemonSpriteEl.className = 'mx-auto'; // Center the image
+    pokemonSpriteContainer.appendChild(pokemonSpriteEl);
+    h2Element.insertAdjacentElement('afterend', pokemonSpriteContainer);
+
+    // Create and append the Pokemon name
+    const pokemonNameEl = document.createElement('p');
+    pokemonNameEl.textContent = pokemonOfDayData.name;
+    pokemonNameEl.className = 'text-center';
+    h2Element.insertAdjacentElement('afterend', pokemonNameEl);
+});
