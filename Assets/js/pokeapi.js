@@ -86,6 +86,7 @@ function displayPokemonHeightWeight(height, weight) {
 //results: the default sprite or shiny sprite is appended to the page depending on the value of shiny
 function displayPokemonSprite(spriteURL, shiny) {
     let pokemonImage = $('<img>', {src: spriteURL});
+    pokemonImage.css('width', '200px'); // Set the width of the image to 200 pixels
     if (shiny) {
         pokemonShinySpriteEl.empty();
         pokemonShinySpriteEl.append(pokemonImage);
@@ -246,6 +247,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
     const pokemonSpriteContainer = document.createElement('a');
     pokemonSpriteContainer.href = `index.html?name=${pokemonOfDayData.name}`;
     const pokemonSpriteEl = document.createElement('img');
+    pokemonSpriteEl.style.width = '200px'; // Set the width to 200 pixels
+    pokemonSpriteEl.style.height = '200px'; // Set the height to 200 pixels
     pokemonSpriteEl.src = pokemonOfDayData.sprites.front_default;
     pokemonSpriteEl.className = 'mx-auto'; // Center the image
     pokemonSpriteContainer.appendChild(pokemonSpriteEl);
