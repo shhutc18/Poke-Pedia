@@ -116,7 +116,7 @@ function displayPokemonStats(stats) {
 //results: all moves the pokemon has are appended to an unordered list and displayed on the page
 function displayPokemonMoves(moves) {
     pokemonMovesEl.empty();
-    pokemonMovesEl.attr('class', 'flex flex-wrap text-md w-full list-none border border-black rounded');
+    pokemonMovesEl.attr('class', 'flex flex-wrap text-md w-full list-none');
     let pokemonMoveHeader = $('<li>');
     pokemonMoveHeader.attr('class', 'm-1')
     pokemonMoveHeader.text("Learnable Moves: " + moves.length);
@@ -210,52 +210,87 @@ $(document).ready(function() {
 });
 
 
-// Pokemon of Day
+// Pokemon of Day Container
 
 // Display current date
+// Add an event listener that runs when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', async (event) => {
+    // Select the first h2 element in the document
     const h2Element = document.querySelector('h2');
+
+    // Create a new paragraph element
     const dateParagraph = document.createElement('p');
+
+    // Add a class to the paragraph element
     dateParagraph.className = 'text-center';
+
+    // Get the current date and format it - using Day.js
     const currentDate = dayjs().format('MMMM D, YYYY');
+
+    // Set the text content of the paragraph to the current date
     dateParagraph.textContent = `Today is: ${currentDate}`;
+
+    // Insert the paragraph after the h2 element
     h2Element.insertAdjacentElement('afterend', dateParagraph);
 
+    // Get the Pokemon of the day from local storage
     let pokemonOfDay = JSON.parse(localStorage.getItem('pokemonOfDay'));
     let pokemonOfDayData;
+
+    // If there's no Pokemon of the day or the date doesn't match the current date
     if (pokemonOfDay == null || pokemonOfDay == undefined || pokemonOfDay.date != currentDate) {
+        // Generate a random Pokemon ID
+        const pokemonId = Math.floor(Math.random() * 898) + 1;
 
-    // Generate a random Pokemon ID
-    const pokemonId = Math.floor(Math.random() * 898) + 1;
+        // Fetch the Pokemon data from the PokeAPI
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+        pokemonOfDayData = await response.json();
 
-    // Fetch the Pokemon data from the PokeAPI
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-    pokemonOfDayData = await response.json();
-
-    pokemonOfDay = {
-        date: currentDate,
-        pokemon: pokemonOfDayData
-    };
-    localStorage.setItem('pokemonOfDay', JSON.stringify(pokemonOfDay));
-
+        // Set the Pokemon of the day and the date in local storage
+        pokemonOfDay = {
+            date: currentDate,
+            pokemon: pokemonOfDayData
+        };
+        localStorage.setItem('pokemonOfDay', JSON.stringify(pokemonOfDay));
     } else {
+        // If there's a Pokemon of the day and the date matches the current date, use the existing data
         pokemonOfDayData = pokemonOfDay.pokemon;
     }
 
-    // Create and append the Pokemon sprite\
+    // Create a link element for the Pokemon sprite
     const pokemonSpriteContainer = document.createElement('a');
+
+    // Set the href of the link to the Pokemon's page
     pokemonSpriteContainer.href = `index.html?name=${pokemonOfDayData.name}`;
+
+    // Create an image element for the Pokemon sprite
     const pokemonSpriteEl = document.createElement('img');
-    pokemonSpriteEl.style.width = '200px'; // Set the width to 200 pixels
-    pokemonSpriteEl.style.height = '200px'; // Set the height to 200 pixels
+
+    // Set the width and height of the image
+    pokemonSpriteEl.style.width = '200px';
+    pokemonSpriteEl.style.height = '200px';
+
+    // Set the source of the image to the Pokemon's sprite
     pokemonSpriteEl.src = pokemonOfDayData.sprites.front_default;
-    pokemonSpriteEl.className = 'mx-auto'; // Center the image
+
+    // Add a class to the image to center it
+    pokemonSpriteEl.className = 'mx-auto';
+
+    // Append the image to the link
     pokemonSpriteContainer.appendChild(pokemonSpriteEl);
+
+    // Insert the link after the h2 element
     h2Element.insertAdjacentElement('afterend', pokemonSpriteContainer);
 
-    // Create and append the Pokemon name
+    // Create a paragraph element for the Pokemon's name
     const pokemonNameEl = document.createElement('p');
+
+    // Set the text content of the paragraph to the Pokemon's name
     pokemonNameEl.textContent = pokemonOfDayData.name;
+
+    // Add a class to the paragraph to center the text
     pokemonNameEl.className = 'text-center';
+
+    // Insert the paragraph after the h2 element
     h2Element.insertAdjacentElement('afterend', pokemonNameEl);
 });
