@@ -36,6 +36,10 @@ favorites.forEach(favorite =>{
     let newElement = document.createElement('img');
     newElement.src = favorite.sprite;
 
+    newElement.addEventListener('click', function() {
+        searchPokemon(favorite.name);
+    });
+
     favoritesEl.appendChild(newElement);
 })
 
