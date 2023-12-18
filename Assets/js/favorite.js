@@ -21,7 +21,10 @@ console.log(pokemonSprite);
     favorite.push(newFavorite);
 
     localStorage.setItem('favorites', JSON.stringify(favorite));
+
+    location.reload();
 });
+
 
 let favoritesEl = document.getElementById('favoritesEl');
 let favorites = JSON.parse(localStorage.getItem('favorites'));
@@ -35,3 +38,13 @@ favorites.forEach(favorite =>{
 
     favoritesEl.appendChild(newElement);
 })
+
+let lastPokemonName = favorites[favorites.length - 1].name;
+localStorage.setItem('lastSearch', lastPokemonName);
+
+window.onload = function() {
+    let lastSearch = localStorage.getItem('lastSearch');
+    searchPokemon(lastSearch);
+}
+
+
