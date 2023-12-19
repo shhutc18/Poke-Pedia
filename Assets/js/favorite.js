@@ -1,44 +1,45 @@
 const staticURL = 'https://pokeapi.co/api/v2';
 
 let favoriteButton = document.getElementById('favoriteButton');
-let pokemonSprite = document.getElementById('pokemonSpriteEl');
 let pokemonName = document.getElementById('pokemonNameEl');
+let favoritesEl = document.getElementById('favoritesEl');
+let favorites = JSON.parse(localStorage.getItem('favorites'));
 
 favoriteButton.addEventListener('click', function() {
-    let favorite= localStorage.getItem('favorites');
-    if (favorite) {
-        favorite = JSON.parse(favorite);
-    } else {
-        favorite = [];
+    if (!favorites) {
+        favorites = [];
     }
-pokemonSprite = pokemonSprite.children[0].src;
+    for (let favorite of favorites) {
+        if (favorite.name === pokemonName.textContent) {
+            return;
+        }
+    }
+    console.log(document.getElementById('pokemonSpriteEl'));
+    let pokemonSprite = document.getElementById('pokemonSpriteEl').children[0].src;
     let newFavorite= {
         sprite: pokemonSprite,
         name: pokemonName.textContent,
     };
 
-console.log(pokemonSprite);
-    favorite.push(newFavorite);
+    favorites.push(newFavorite);
 
-    localStorage.setItem('favorites', JSON.stringify(favorite));
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 
-    location.reload();
+    window.location.href ="index.html?q=" + pokemonName.textContent;
 });
 
-
-let favoritesEl = document.getElementById('favoritesEl');
-let favorites = JSON.parse(localStorage.getItem('favorites'));
-
-
-favorites.forEach(favorite =>{
-    let newElement = document.createElement('img');
-    newElement.src = favorite.sprite;
-
-    newElement.addEventListener('click', function() {
-        searchPokemon(favorite.name);
-    });
-
-    favoritesEl.appendChild(newElement);
-})
+if (favorites) {
+    favorites.forEach(favorite =>{
+    
+        let newElement = document.createElement('img');
+        newElement.src = favorite.sprite;
+    
+        newElement.addEventListener('click', function() {
+            searchPokemon(favorite.name);
+        });
+    
+        favoritesEl.appendChild(newElement);
+    })
+}
 
 
