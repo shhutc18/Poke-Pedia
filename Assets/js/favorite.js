@@ -1,37 +1,48 @@
+//global variables
 const staticURL = 'https://pokeapi.co/api/v2';
-
 let favoriteButton = document.getElementById('favoriteButton');
-let pokemonSprite = document.getElementById('pokemonSpriteEl');
 let pokemonName = document.getElementById('pokemonNameEl');
+let favoritesEl = document.getElementById('favoritesEl');
+let favorites = JSON.parse(localStorage.getItem('favorites'));
 
+//adds event listener to the favorite button (star)
 favoriteButton.addEventListener('click', function() {
-    let favorite= localStorage.getItem('favorites');
-    if (favorite) {
-        favorite = JSON.parse(favorite);
-    } else {
-        favorite = [];
+    if (!favorites) {
+        favorites = [];
     }
-pokemonSprite = pokemonSprite.children[0].src;
+    //prevents duplicates
+    for (let favorite of favorites) {
+        if (favorite.name === pokemonName.textContent) {
+            return;
+        }
+    }
+    let pokemonSprite = document.getElementById('pokemonSpriteEl').children[0].src;
     let newFavorite= {
         sprite: pokemonSprite,
         name: pokemonName.textContent,
     };
 
-console.log(pokemonSprite);
-    favorite.push(newFavorite);
+    favorites.push(newFavorite);
 
-    localStorage.setItem('favorites', JSON.stringify(favorite));
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    //refresh page
+    window.location.href ="index.html?q=" + pokemonName.textContent;
 });
 
-let favoritesEl = document.getElementById('favoritesEl');
-let favorites = JSON.parse(localStorage.getItem('favorites'));
+//creates the favorite list on the bottom of the page
+if (favorites) {
+    favorites.forEach(favorite =>{
+    
+        let newElement = document.createElement('img');
+        newElement.src = favorite.sprite;
+    
+        //adds event listener to each favorite allowing user to search when clicking on their favorites
+        newElement.addEventListener('click', function() {
+            searchPokemon(favorite.name);
+        });
+    
+        favoritesEl.appendChild(newElement);
+    })
+}
 
-console.log(favorites);
 
-
-favorites.forEach(favorite =>{
-    let newElement = document.createElement('img');
-    newElement.src = favorite.sprite;
-
-    favoritesEl.appendChild(newElement);
-})
