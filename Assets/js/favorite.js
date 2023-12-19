@@ -29,8 +29,6 @@ console.log(pokemonSprite);
 let favoritesEl = document.getElementById('favoritesEl');
 let favorites = JSON.parse(localStorage.getItem('favorites'));
 
-console.log(favorites);
-
 
 favorites.forEach(favorite =>{
     let newElement = document.createElement('img');
@@ -42,13 +40,5 @@ favorites.forEach(favorite =>{
 
     favoritesEl.appendChild(newElement);
 })
-
-let lastPokemonName = favorites[favorites.length - 1].name;
-localStorage.setItem('lastSearch', lastPokemonName);
-
-window.onload = function() {
-    let lastSearch = localStorage.getItem('lastSearch');
-    searchPokemon(lastSearch);
-}
 
 
