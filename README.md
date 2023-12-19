@@ -16,17 +16,26 @@ If the user wishes to browse for individual pokemon instead of searching directl
 
 Additionally, there will be a Pokemon of the day listed on the page for all users to see.
 
+## Technologies Used
+
+HTML, CSS, JS
+Tailwind
+Poke-API https://pokeapi.co/
+Google Fonts
+jQuery
+Day.js
+
 ## Credits
 
 This application was completed by Shelby Hutchinson, Chase Seeberger, Will Schickler, and Jeremy Sevilla.
 
 ## Link
 
-<!-- Link to DEPLOYED application -->
+https://shhutc18.github.io/Poke-Pedia/
 
 ## Screenshot
 
-<!-- Screenshot of finished application -->
+<img src="./Assets/Images/Final.png">
 
 ## License
 
